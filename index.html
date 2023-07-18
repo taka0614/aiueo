@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Skils</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="prompt">Scroll Down</h1>
+      <!-- 矢印の部分（省略）-->
+      <svg class="arrow" width="50" height="50" viewBox="0 0 24 24">
+        <path
+          d="M11.0001 3.67157L13.0001 3.67157L13.0001 16.4999L16.2426 13.2574L17.6568 14.6716L12 20.3284L6.34314 14.6716L7.75735 13.2574L11.0001 16.5001L11.0001 3.67157Z"
+        ></path>
+      </svg>
+      <div class="progress-container">
+        <!--
+
+        プログレスバーの値の説明
+        
+        参考
+        https://digipress.info/tech/circular-progress-bar-with-count-up/
+
+        data-percent="59"  プログレスバーの値を指定（単位は%）
+        data-duration="2200"  プログレスバーのアニメーション時間を指定（単位はミリ秒）
+        data-stroke-width="8"  プログレスバーのストロークの太さを指定（単位はピクセル）
+        data-stroke-color="#00ccff"  プログレスバーのストロークの色を指定（RGBカラーコード、#から始まる）
+        data-start-position="top"  プログレスバーの開始位置を指定（top, right, bottom, leftのいずれか）
+
+
+        プログレスバー要素のdata-percent、data-duration、data-stroke-width、data-stroke-color、
+        data-start-position属性は、JavaScriptでプログレスバーのアニメーション処理を行うために使用されます。
+        
+        data-percent属性ではプログレスバーの値、
+        data-duration属性ではアニメーション時間、
+        data-stroke-width属性ではストロークの太さ、
+        data-stroke-color属性ではストロークの色、
+        data-start-position属性ではプログレスバーの開始位置が指定されています。
+        また、<div class="progress-title">要素ではプログレスバーのタイトルが指定されています。
+
+        -->
+        <div
+          class="progress-item"
+          data-percent="59"
+          data-duration="2200"
+          data-stroke-width="8"
+          data-stroke-color="#00ccff"
+          data-start-position="top"
+        >
+          <div class="progress-item__inner">
+            <svg class="progress-svg" viewBox="0 0 100 100">
+              <circle
+                class="progress-background"
+                cx="50"
+                cy="50"
+                r="45"
+              ></circle>
+              <circle class="progress-bar" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="progress-text">
+              <span class="progress-value">0</span
+              ><span class="progress-unit">%</span>
+            </div>
+          </div>
+          <div class="progress-title">CSS</div>
+        </div>
+        <div
+          class="progress-item"
+          data-percent="88"
+          data-duration="3200"
+          data-stroke-width="10"
+          data-stroke-color="#adff00"
+          data-start-position="right"
+        >
+          <div class="progress-item__inner">
+            <svg class="progress-svg" viewBox="0 0 100 100">
+              <circle
+                class="progress-background"
+                cx="50"
+                cy="50"
+                r="45"
+              ></circle>
+              <circle class="progress-bar" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="progress-text">
+              <span class="progress-value">0</span
+              ><span class="progress-unit">%</span>
+            </div>
+          </div>
+          <div class="progress-title">JavaScript</div>
+        </div>
+        <div
+          class="progress-item"
+          data-percent="72.6"
+          data-duration="4200"
+          data-stroke-width="5"
+          data-stroke-color="#dd5bcc"
+          data-start-position="bottom"
+        >
+          <div class="progress-item__inner">
+            <svg class="progress-svg" viewBox="0 0 100 100">
+              <circle
+                class="progress-background"
+                cx="50"
+                cy="50"
+                r="45"
+              ></circle>
+              <circle class="progress-bar" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="progress-text">
+              <span class="progress-value">0</span
+              ><span class="progress-unit">%</span>
+            </div>
+          </div>
+          <div class="progress-title">PHP</div>
+        </div>
+        <div
+          class="progress-item"
+          data-percent="66.84"
+          data-duration="5800"
+          data-stroke-width="8"
+          data-stroke-color="#dda05b"
+          data-start-position="left"
+        >
+          <div class="progress-item__inner">
+            <svg class="progress-svg" viewBox="0 0 100 100">
+              <circle
+                class="progress-background"
+                cx="50"
+                cy="50"
+                r="45"
+              ></circle>
+              <circle class="progress-bar" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="progress-text">
+              <span class="progress-value">0</span
+              ><span class="progress-unit">%</span>
+            </div>
+          </div>
+          <div class="progress-title">Python</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // プログレスバーの要素を取得
+      const progressItems = document.querySelectorAll(".progress-item");
+
+      // プログレスバーが表示されたときに実行する処理
+      const observeAction = (entries) => {
+        // プログレスバーの要素を1つずつ処理
+        entries.forEach((entry) => {
+          // プログレスバーが画面内に入ったかどうかをチェック
+          if (
+            !entry.isIntersecting || // 画面内に入っていない場合は処理しない
+            entry.target.classList.contains("is-visible") // 既に表示されている場合も処理しない
+          ) {
+            return;
+          }
+
+          // プログレスバーの値を取得
+          const percent = parseFloat(entry.target.dataset.percent);
+
+          // 値が不正な場合は処理を中止
+          if (!Number.isFinite(percent)) {
+            return false;
+          }
+
+          // プログレスバーのアニメーション時間を取得（指定がない場合は1500ミリ秒）
+          const duration = parseInt(entry.target.dataset.duration) || 1500;
+
+          // プログレスバーの要素を取得
+          const eleProgressBar = entry.target.querySelector(".progress-bar");
+
+          // プログレスバーの値を表示する要素を取得
+          const eleProgressValue =
+            entry.target.querySelector(".progress-value");
+
+          // プログレスバーの半径を取得
+          const radius = eleProgressBar.getAttribute("r");
+
+          // プログレスバーの周囲長を計算
+          const circumference = 2 * Math.PI * radius;
+
+          // プログレスバーのstroke-dashoffsetの値を計算
+          const strokeDashOffset = Math.round(
+            circumference - (circumference * percent) / 100
+          );
+
+          // プログレスバーの開始位置を計算
+          const startPosition =
+            {
+              right: "0deg",
+              bottom: "90deg",
+              left: "180deg",
+              default: "-90deg",
+            }[entry.target.dataset.startPosition] || "-90deg";
+
+          // プログレスバーの小数点以下の桁数を計算
+          const deciamlPointLength = (String(percent).split(".")[1] || "")
+            .length;
+
+          // アニメーション開始時刻を取得
+          const startTime = performance.now();
+
+          // カウントアップ処理
+          let countValue = 0;
+          const countUp = (timestamp) => {
+            const elapsed = timestamp - startTime;
+            countValue = (elapsed / duration) * percent;
+            eleProgressValue.innerText = countValue.toFixed(deciamlPointLength);
+
+            // アニメーションが終了していない場合は再帰呼び出し
+            if (elapsed < duration) {
+              requestAnimationFrame(countUp);
+            } else {
+              // アニメーションが終了した場合はプログレスバーの値を表示
+              eleProgressValue.innerText = percent;
+            }
+          };
+
+          // プログレスバーのスタイルを設定
+          entry.target.style.cssText = `
+             --duration: ${duration}ms;
+             --start-rotate: ${startPosition};
+             --stroke-dashoffset: ${strokeDashOffset};
+             --stroke-color: ${entry.target.dataset.strokeColor};
+             --stroke-width: ${entry.target.dataset.strokeWidth};
+           `;
+
+          // カウントアップ処理を開始
+          requestAnimationFrame(countUp);
+
+          // プログレスバーが表示されたことを示すクラスを追加
+          entry.target.classList.add("is-visible");
+        });
+      };
+
+      // IntersectionObserverオブジェクトを作成
+      const options = {
+        rootMargin: "0px 0px -40% 0px", // ルート要素と交差したときに発火するマージンを指定
+      };
+      const observer = new IntersectionObserver(observeAction, options);
+
+      // プログレスバーの要素を監視する
+      progressItems.forEach((target) => {
+        observer.observe(target);
+      });
+    </script>
+  </body>
+</html>
